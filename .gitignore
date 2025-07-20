@@ -1,0 +1,29 @@
+# 🚫 Ignore virtual environment
+.venv/
+
+# 🚫 Ignore data folders and large files
+data/
+datasets/
+*.csv
+
+# 🚫 Ignore Jupyter Notebook checkpoints
+# .ipynb_checkpoints/
+
+# 🚫 Ignore Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.so
+
+# 🚫 Ignore logs and temp files
+*.log
+*.tmp
+*.bak
+
+# 🚫 Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# 🚫 Ignore VS Code workspace settings (optional)
+.vscode/
+
+data/raw/
