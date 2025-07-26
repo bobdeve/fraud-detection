@@ -97,3 +97,56 @@ Move to model development and evaluation (Task 2).
 Explore additional feature interactions and time-based fraud patterns.
 
 Perform hyperparameter tuning after baseline models are tested.
+
+
+
+Task 2 - Model Building and Training
+Overview
+In Task 2, we focused on building, training, and evaluating machine learning models to detect fraud in the datasets. The main goal was to develop models that can effectively handle the class imbalance inherent in fraud detection.
+
+Data Preparation
+Loaded the cleaned and preprocessed data from Task 1.
+
+Separated features (X) and target (y) variables.
+
+Performed a train-test split with stratification to maintain class distribution.
+
+Applied SMOTE on the training set to balance the minority class.
+
+Model Selection
+We built and compared the following models:
+
+Logistic Regression
+
+Served as a simple and interpretable baseline model.
+
+Random Forest Classifier
+
+A powerful ensemble model that handles non-linearity and interactions well.
+
+XGBoost Classifier
+
+A gradient boosting model known for its high performance in classification tasks.
+
+Model Training and Evaluation
+All models were trained on the balanced training data.
+
+Performance was evaluated on the test set using metrics appropriate for imbalanced classification:
+
+Area Under the Precision-Recall Curve (AUC-PR)
+
+F1-Score
+
+Confusion Matrix
+
+Classification Report (precision, recall, f1-score)
+
+Results and Insights
+Random Forest and XGBoost models significantly outperformed Logistic Regression in terms of AUC-PR and F1-Score.
+
+Logistic Regression showed lower recall and F1-Score on the minority (fraud) class.
+
+Random Forest achieved the best balance between precision and recall, making it the preferred model for this task.
+
+The evaluation demonstrated the importance of using ensemble methods and balancing techniques in fraud detection.
+
