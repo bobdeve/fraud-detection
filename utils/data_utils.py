@@ -53,31 +53,53 @@ def add_transaction_frequency(fraud_df):
     fraud_df = fraud_df.merge(user_freq, on='user_id')
     return fraud_df
 
-def ip_to_int(ip_str):
-    """Convert IP string to integer. Return None if invalid."""
+def ip_to_int(ip_val):
+    """
+    Convert IP address to integer format.
+    If already numeric (int or float), cast to int.
+    If it's a valid string IP, convert it using ipaddress.
+    Otherwise, return None.
+    """
     try:
-        return int(ipaddress.IPv4Address(ip_str))
+        if isinstance(ip_val, str):
+            return int(ipaddress.IPv4Address(ip_val))
+        elif isinstance(ip_val, (int, float)):
+            return int(ip_val)
+        else:
+            return None
     except Exception:
-        return None  # Invalid IP format
+        return None
+
 
 def map_ip_to_country(ip, ip_df):
-    if ip == -1:
+    """
+    Match integer IP to a country using the IP range DataFrame.
+    Return 'Unknown' if no match found.
+    """
+    if ip == -1 or pd.isna(ip):
         return 'Unknown'
-    match = ip_df[(ip_df['lower_bound_ip_address'] <= ip) & (ip_df['upper_bound_ip_address'] >= ip)]
+    match = ip_df[
+        (ip_df['lower_bound_ip_address'] <= ip) &
+        (ip_df['upper_bound_ip_address'] >= ip)
+    ]
     return match['country'].values[0] if not match.empty else 'Unknown'
 
 
-
-
-
 def merge_ip_country(fraud_df, ip_df):
+    """
+    Merge fraud data with IP-country mapping using integer IPs.
+    """
+    # Convert IP to integer format (safe for both string and float inputs)
     fraud_df['ip_int'] = fraud_df['ip_address'].apply(ip_to_int)
 
-    # Fill invalid IPs with -1 so they still exist
-    fraud_df['ip_int'] = fraud_df['ip_int'].fillna(-1)
+    # Fill invalid IPs with -1 for consistency
+    fraud_df['ip_int'] = fraud_df['ip_int'].fillna(-1).astype(int)
 
+    # Map IP to country
     fraud_df['country'] = fraud_df['ip_int'].apply(lambda x: map_ip_to_country(x, ip_df))
+
     return fraud_df
+
 
 
 
