@@ -100,53 +100,85 @@ Perform hyperparameter tuning after baseline models are tested.
 
 
 
-Task 2 - Model Building and Training
-Overview
-In Task 2, we focused on building, training, and evaluating machine learning models to detect fraud in the datasets. The main goal was to develop models that can effectively handle the class imbalance inherent in fraud detection.
+📌 Task 2 - Model Building and Training
+✅ Task Completion
+This notebook implements and compares two models on the cleaned and preprocessed fraud dataset:
 
-Data Preparation
-Loaded the cleaned and preprocessed data from Task 1.
+Logistic Regression: A simple, interpretable baseline model.
 
-Separated features (X) and target (y) variables.
+XGBoost & Random Forest: Powerful ensemble models well-suited for imbalanced classification.
 
-Performed a train-test split with stratification to maintain class distribution.
+Data Handling:
 
-Applied SMOTE on the training set to balance the minority class.
+Separated features and target (class) from the dataset.
 
-Model Selection
-We built and compared the following models:
+Performed stratified train-test split to preserve class distribution.
 
-Logistic Regression
+Used SMOTE to oversample the minority (fraud) class during training.
 
-Served as a simple and interpretable baseline model.
+Model Evaluation:
 
-Random Forest Classifier
+Each model was evaluated using metrics tailored for imbalanced classification tasks:
 
-A powerful ensemble model that handles non-linearity and interactions well.
-
-XGBoost Classifier
-
-A gradient boosting model known for its high performance in classification tasks.
-
-Model Training and Evaluation
-All models were trained on the balanced training data.
-
-Performance was evaluated on the test set using metrics appropriate for imbalanced classification:
-
-Area Under the Precision-Recall Curve (AUC-PR)
+Area Under Precision-Recall Curve (AUC-PR)
 
 F1-Score
 
 Confusion Matrix
 
-Classification Report (precision, recall, f1-score)
+Classification Report (Precision, Recall, F1, Support)
 
-Results and Insights
-Random Forest and XGBoost models significantly outperformed Logistic Regression in terms of AUC-PR and F1-Score.
+Key Insights:
 
-Logistic Regression showed lower recall and F1-Score on the minority (fraud) class.
+XGBoost and Random Forest outperformed Logistic Regression significantly in terms of F1-score and AUC-PR.
 
-Random Forest achieved the best balance between precision and recall, making it the preferred model for this task.
+Random Forest showed the best balance of precision and recall, making it the strongest candidate for fraud detection on this dataset.
 
-The evaluation demonstrated the importance of using ensemble methods and balancing techniques in fraud detection.
+🧪 Documentation & Reproducibility
+All code is well-commented, modularized, and logically ordered.
 
+Each step of the modeling pipeline (data loading, splitting, balancing, training, and evaluation) is clearly explained.
+
+Complex operations like SMOTE balancing and metric evaluation are wrapped in reusable functions to ensure maintainability.
+
+The notebook runs cleanly from top to bottom without errors.
+
+📁 Repository Organization
+
+fraud-detection/
+│
+├── data/
+│   ├── raw/                        # Original datasets (e.g., Fraud_Data.csv, IpAddressToCountry.csv)
+│   └── processed/                  # Cleaned and transformed datasets (e.g., cleaned_fraud_data.csv)
+│
+├── notebooks/
+│   ├── task1_data_cleaning_eda.ipynb
+│   └── task2_model_training.ipynb
+│
+├── utils/
+│   └── data_utils.py              # Modular data processing functions
+│
+├── README.md                      # Project summary and instructions
+└── requirements.txt               # List of required Python packages
+📊 Metric Summary
+Model	AUC-PR	F1-Score	Precision (Fraud)	Recall (Fraud)
+LogisticRegression	0.4197	0.2807	0.18	0.70
+Random Forest	0.6295	0.6988	1.00	0.54
+XGBoost	0.6174	0.6898	0.96	0.54
+
+🚀 How to Reproduce
+
+# Clone the repo
+git clone https://github.com/your-username/fraud-detection.git
+cd fraud-detection
+
+# Set up a virtual environment (optional but recommended)
+python -m venv .fraud
+source .fraud/bin/activate  # or .fraud\Scripts\activate on Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run notebooks in order
+jupyter notebook notebooks/task1_data_cleaning_eda.ipynb
+jupyter notebook notebooks/task2_model_training.ipynb
