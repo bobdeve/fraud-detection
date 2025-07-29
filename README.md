@@ -2,9 +2,21 @@
 This repository contains my progress for Task 1 – Data Analysis and Preprocessing of the fraud detection project. It includes comprehensive data cleaning, exploratory data analysis (EDA), feature engineering, and class imbalance handling techniques to prepare the dataset for fraud prediction modeling.
 
 📁 Repository Structure
-bash
-Copy
-Edit
+
+# Clone the repo
+git clone https://github.com/bobdeve/fraud-detection.git
+cd fraud-detection
+
+# Set up a virtual environment (optional but recommended)
+python -m venv .fraud
+source .fraud/bin/activate  # or .fraud\Scripts\activate on Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run notebooks in order
+jupyter notebook notebooks/task1_data_cleaning_eda.ipynb
+jupyter notebook notebooks/task2_model_training.ipynb
 fraud-detection/
 │
 ├── data/                   # Raw and processed data files (if shared)
@@ -83,9 +95,7 @@ Distribution and sampling results are shown in both plots and console outputs.
 Code is implemented in transform_and_balance() function inside data_utils.py.
 
 📎 How to Reproduce
-python
-Copy
-Edit
+
 from utils.data_utils import transform_and_balance
 
 X_train, X_test, y_train, y_test = transform_and_balance(X, y)
@@ -145,21 +155,7 @@ The notebook runs cleanly from top to bottom without errors.
 
 📁 Repository Organization
 
-fraud-detection/
-│
-├── data/
-│   ├── raw/                        # Original datasets (e.g., Fraud_Data.csv, IpAddressToCountry.csv)
-│   └── processed/                  # Cleaned and transformed datasets (e.g., cleaned_fraud_data.csv)
-│
-├── notebooks/
-│   ├── task1_data_cleaning_eda.ipynb
-│   └── task2_model_training.ipynb
-│
-├── utils/
-│   └── data_utils.py              # Modular data processing functions
-│
-├── README.md                      # Project summary and instructions
-└── requirements.txt               # List of required Python packages
+
 📊 Metric Summary
 Model	AUC-PR	F1-Score	Precision (Fraud)	Recall (Fraud)
 LogisticRegression	0.4197	0.2807	0.18	0.70
@@ -168,17 +164,4 @@ XGBoost	0.6174	0.6898	0.96	0.54
 
 🚀 How to Reproduce
 
-# Clone the repo
-git clone https://github.com/your-username/fraud-detection.git
-cd fraud-detection
 
-# Set up a virtual environment (optional but recommended)
-python -m venv .fraud
-source .fraud/bin/activate  # or .fraud\Scripts\activate on Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run notebooks in order
-jupyter notebook notebooks/task1_data_cleaning_eda.ipynb
-jupyter notebook notebooks/task2_model_training.ipynb
