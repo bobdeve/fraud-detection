@@ -36,9 +36,7 @@ fraud-detection/
 📦 Installation
 To run this project locally:
 
-bash
-Copy
-Edit
+
 git clone https://github.com/yourusername/fraud-detection.git
 cd fraud-detection
 pip install -r requirements.txt
@@ -162,6 +160,69 @@ LogisticRegression	0.4197	0.2807	0.18	0.70
 Random Forest	0.6295	0.6988	1.00	0.54
 XGBoost	0.6174	0.6898	0.96	0.54
 
-🚀 How to Reproduce
+## 🔍 Task 3: Model Explainability using SHAP
 
+In this task, we used **SHAP (SHapley Additive exPlanations)** to interpret our best-performing model — the **XGBoost Classifier** — and understand what features drive fraud predictions.
+
+### 🎯 Objective
+
+To uncover **global** and **local** feature importance:
+- Understand which features contribute most to fraud detection.
+- Visualize individual prediction explanations.
+- Reveal feature interactions and their effects on model output.
+
+---
+
+### 🧠 SHAP Workflow
+
+1. **Explainer Setup:**
+   We used `shap.Explainer()` on the trained XGBoost model and test data:
+
+   ```python
+   explainer = shap.Explainer(model, X_train)
+   shap_values = explainer(X_test)
+
+   Summary Plot (Global Importance):
+
+
+What it shows: The average impact of each feature on the model’s output.
+
+Insight: Features like V14, V10, V12, and Amount have the most influence in identifying fraud.
+
+Color bar: Indicates feature value (red = high, blue = low).
+
+Bar Plot of Top 10 Features:
+
+
+Mean absolute SHAP values were calculated to rank features.
+
+Fraud prediction is most sensitive to extreme values in features like V14 and V10.
+
+Force Plot (Local Explanation):
+
+
+What it shows: How individual feature values push a prediction toward fraud (1) or not fraud (0).
+
+Usage: Helps explain specific flagged transactions for auditing or debugging.
+
+Interaction Plot (Optional Advanced Analysis):
+
+Analyzed interaction effects between pairs of features.
+
+Found that Time interacts with anonymized features like V1 in contributing to fraud risk.
+
+🗝️ Key Takeaways from SHAP
+V14, V10, and V12 are top fraud indicators.
+
+Higher transaction amounts (Amount) tend to push predictions toward fraud.
+
+Local force plots reveal the reasoning behind a single fraud prediction, increasing transparency.
+
+SHAP provides both trust and debugging power to your model pipeline.
+
+📂 Output Files
+File	Description
+outputs/shap_summary.png	Summary plot showing global feature impact
+outputs/fraud_feature_importance.png	Bar plot of top 10 important features
+outputs/shap_force_plot_example.png	Local explanation for a single sample
 
